@@ -4,18 +4,23 @@ import http.client, urllib
 import json
 
 accessKey = "07e47a6d41ed4ad78737e98b403e0d68"
-uri = 'westus.api.cognitive.microsoft.com'
-path = '/text/analytics/v2.0/sentiment'
+
+# import socket
+# import socks
+
+# socks.set_default_proxy(socks.SOCKS5, "proxy22.iitd.ac.in", 3128)
+# socket.socket = socks.socksocket
+import requests
 
 def GetSentiment (documents):
     "Gets the sentiments for a set of documents and returns the information."
 
     headers = {'Ocp-Apim-Subscription-Key': accessKey}
-    conn = http.client.HTTPSConnection (uri)
     body = json.dumps (documents)
-    conn.request ("POST", path, body, headers)
-    response = conn.getresponse ()
-    return response.read ()
+    # conn.request ("POST", path, body, headers)
+    # response = conn.getresponse ()
+    data = requests.post("https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/semtiment", headers = headers, data = body, verify=False)
+    return data.text
 
 documents = { 'documents': [
     { 'id': '1', 'language': 'en', 'text': 'I really enjoy the new XBox One S. It has a clean look, it has 4K/HDR resolution and it is affordable.' },
