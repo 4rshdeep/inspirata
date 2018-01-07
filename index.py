@@ -63,8 +63,10 @@ class MyListener(StreamListener):
             # p = range(0, 2).index(max(loaded_model.predict(data)))
 
             # if p == 1:
-            #     user = json.loads(data)['user']['screen_name']
-            #     api.update_status("@" + user + " " + text_model.make_short_sentence(138 - len(user)))
+            user = json.loads(data)['user']['screen_name']
+            print('x'*5)
+            print("@" + user + " " + text_model.make_short_sentence(138 - len(user)))
+            api.update_status("@" + user + " " + text_model.make_short_sentence(138 - len(user)))
 
         except BaseException as e:
             print('&quot;Error on_data: %s&quot;' % str(e))
