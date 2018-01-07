@@ -19,19 +19,33 @@ auth = tweepy.auth.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 
 api = tweepy.API(auth)
+import re
+import spacy
 
+nlp = spacy.load("en")
+
+class POSifiedText(markovify.Text):
+    def word_split(self, sentence):
+        return ["::".join((word.orth_, word.pos_)) for word in nlp(sentence)]
+
+    def word_join(self, words):
+        sentence = " ".join(word.split("::")[0] for word in words)
+        return sentence
 
 # Train Markov Chain
 with open('encouraging.txt') as f:
     text = f.read()
-text_model = markovify.Text(text)
+text_model = POSifiedText(text)
 
 class MyListener(StreamListener):
     def on_data(self, data):
         try:
+
             maintain_log = {}
-            tweet = json.loads(data)['text'].replace('RT ', '')
-            
+            tweet_data = json.loads(data)
+            tweet = tweet_data['text'].replace('RT ', '')
+            tweet_id = str(tweet_data['id'])
+            user_id = str(tweet_data['user']['id'])
             maintain_log['tweet'] = tweet
 
 
@@ -114,8 +128,9 @@ class MyListener(StreamListener):
             print('----------'*5)
             
 
-            api.update_status("@" + user + " " + text_model.make_short_sentence(138 - len(user)))
-            time.sleep(180)
+            api.update_status(maintain_log['response']+"  https://twitter.com/"+user_id+"/status/"+tweet_id)
+
+            time.sleep(10)
             
         except BaseException as e:
             print("[Errno {0}] {1}".format(e.errno, e.strerror))
