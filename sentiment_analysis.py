@@ -8,16 +8,19 @@ import urllib.error
 import base64
 import requests
 import urllib3
+import os
 
 LOCATION = "southcentralus"
 URL = LOCATION + ".api.cognitive.microsoft.com"
-apikey='dd955a5dc6104d8596a40362503f8d56'
+APIKEY=os.environ['TEXT_API_KEY']
+
 
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
-http_proxy  = "http://proxy62.iitd.ac.in:3128"
-https_proxy  = "https://proxy62.iitd.ac.in:3128"
-ftp_proxy   = "http://proxy62.iitd.ac.in:3128"
+#export environment variables
+http_proxy  = os.environ['http_proxy']
+https_proxy  = os.environ['https_proxy']
+ftp_proxy   = os.environ['http_proxy']
 
 proxyDict = {
               "http"  : http_proxy,
@@ -31,7 +34,7 @@ def GetSentiment(documents):
     # Request headers    
     headers = {
         'Content-Type': 'application/json',
-        'Ocp-Apim-Subscription-Key': apikey,
+        'Ocp-Apim-Subscription-Key': APIKEY,
     }
     
     body = json.dumps(documents)

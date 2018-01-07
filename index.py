@@ -8,10 +8,10 @@ import tweepy
 from tweepy import Stream
 from tweepy.streaming import StreamListener
 
-CONSUMER_KEY = "j12kdoV7otKJeF8RI9oQFb9aV"
-CONSUMER_SECRET = "lR6PoRQ6ARrdSKXprtbU6266kTJBJAb9GyU9GPdfNpVfiq9Ows"
-ACCESS_TOKEN = "765137039285190656-nZY6LmN2jJFufN640G8qNi5evUha6Rd"
-ACCESS_SECRET = "tX73GEmHYNBUsQ32FXPyJaqNyxcvs957tsLrPAJ5nZm6E"
+CONSUMER_KEY = os.environ['CONSUMER_KEY']
+CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
+ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+ACCESS_SECRET = os.environ['ACCESS_SECRET']
 
 auth = tweepy.auth.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
@@ -28,7 +28,6 @@ class MyListener(StreamListener):
     def on_data(self, data):
         try:
             new = json.loads(data)['text'].replace('RT ', '')
-            print(new)
             reviews = []
             texts = []
 
