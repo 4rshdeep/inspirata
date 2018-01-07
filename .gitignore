@@ -1,2 +1,4 @@
 test.py
 *.json
+logfile.txt
+__pycache__

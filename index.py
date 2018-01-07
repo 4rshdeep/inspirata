@@ -2,7 +2,8 @@ import time, os
 import json
 from  configparser import *
 import markovify
-from bs4 import BeautifulSoup
+from sentiment_analysis import get_sentiment, get_sentiment_val
+# from bs4 import BeautifulSoup
 
 import tweepy
 from tweepy import Stream
@@ -27,11 +28,19 @@ text_model = markovify.Text(text)
 class MyListener(StreamListener):
     def on_data(self, data):
         try:
-            new = json.loads(data)['text'].replace('RT ', '')
-            reviews = []
-            texts = []
+            maintain_log = {}
+            tweet = json.loads(data)['text'].replace('RT ', '')
+            
+            maintain_log['tweet'] = tweet
 
-            # text = BeautifulSoup(new)
+
+            # file = open("tweet.json", 'a')
+            # file.write(json.dumps(json.loads(data), indent=4))
+            
+
+            # reviews = []
+            # texts = []
+            # text = BeautifulSoup(tweet)
             # text = clean_str(text.get_text().encode('ascii','ignore'))
             # texts.append(text)
             # sentences = tokenize.sent_tokenize(text)
@@ -64,12 +73,41 @@ class MyListener(StreamListener):
 
             # if p == 1:
             user = json.loads(data)['user']['screen_name']
-            print('x'*5)
-            print("@" + user + " " + text_model.make_short_sentence(138 - len(user)))
-            api.update_status("@" + user + " " + text_model.make_short_sentence(138 - len(user)))
 
+            status = "@" + user + " " + text_model.make_short_sentence(138 - len(user))
+            maintain_log['response'] = status
+
+            logfile = open("logfile.txt", 'a')
+            
+
+            print('----------'*5)
+            print("tweet: " + maintain_log['tweet'])
+            tweet_sentiment = get_sentiment(maintain_log['tweet'])
+            response_sentiment = get_sentiment(maintain_log['response'])
+            
+            if tweet_sentiment>0.75:
+                logfile.write("tweet: " + maintain_log['tweet'])
+                logfile.write("NR :: tweet_sentiment_is_high :: " + str(tweet_sentiment))
+                print("NR :: tweet_sentiment_is_high ::" + str(tweet_sentiment)) 
+                return True
+
+            
+            if response_sentiment < 0.65:
+                logfile.write("tweet: " + maintain_log['tweet'])
+                logfile.write("NR :: sentiment :: "+str(response_sentiment) + "response:: " + maintain_log['response'])
+                print("NR :: response_sentiment_is_low :: "+str(response_sentiment))
+                return True
+
+            
+            print("response: " + maintain_log['response'])
+            print('----------'*5)
+            
+
+            api.update_status("@" + user + " " + text_model.make_short_sentence(138 - len(user)))
+            time.sleep(180)
+            
         except BaseException as e:
-            print('&quot;Error on_data: %s&quot;' % str(e))
+            print("[Errno {0}] {1}".format(e.errno, e.strerror))
         return True
 
     def on_error(self, status):
