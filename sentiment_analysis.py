@@ -20,7 +20,7 @@ apikey='33de72c7d4ff4c40a85eb36fec75c127'
 # socket.socket = socks.socksocket
 import requests
 
-
+# Sample code does not work correctly look here https://social.msdn.microsoft.com/Forums/lync/en-US/39a3383b-651c-45f6-b8be-cf6bc2b9cd4d/error-when-calling-cognitive-text-analytics-v2-api-from-python?forum=mlapi
 def GetSentiment(documents):
     '''Gets the sentiments for a set of documents and returns the information.'''
     headers = {
