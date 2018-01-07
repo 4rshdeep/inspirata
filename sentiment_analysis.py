@@ -12,7 +12,7 @@ import base64
 # SUBSCRIPTIONKEY = 
 LOCATION = "southcentralus"
 URL = LOCATION + ".api.cognitive.microsoft.com"
-apikey='33de72c7d4ff4c40a85eb36fec75c127'
+apikey='dd955a5dc6104d8596a40362503f8d56'
 # import socket
 # import socks
 
@@ -20,7 +20,7 @@ apikey='33de72c7d4ff4c40a85eb36fec75c127'
 # socket.socket = socks.socksocket
 import requests
 
-# Sample code does not work correctly look here https://social.msdn.microsoft.com/Forums/lync/en-US/39a3383b-651c-45f6-b8be-cf6bc2b9cd4d/error-when-calling-cognitive-text-analytics-v2-api-from-python?forum=mlapi
+
 def GetSentiment(documents):
     '''Gets the sentiments for a set of documents and returns the information.'''
     headers = {
@@ -39,13 +39,13 @@ def GetSentiment(documents):
         conn = http.client.HTTPSConnection(URL)
         conn.request("POST", "/text/analytics/v2.0/sentiment?%s" % params, str(body), headers)
         response = conn.getresponse()
-        data = response.read()
-        # print(data)
+        data = response.read().decode('utf-8')
+        return data
         conn.close()
     except Exception as e:
         print("[Errno {0}] {1}".format(e.errno, e.strerror))
 
-    return data
+    # return data
 
     # data = requests.post("https://westcentralus.api.cognitive.microsoft.com/text/analytics/v2.0/semtiment", headers = headers, data = body, verify=False)
     # return data.text
@@ -73,5 +73,6 @@ documents = {
 print('Please wait a moment for the results to appear.\n')
 
 result = GetSentiment(documents)
+# print("result :: ")
 # print(result)
 print(json.dumps(json.loads(result), indent=4))
