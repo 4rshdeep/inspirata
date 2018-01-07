@@ -23,9 +23,9 @@ import urllib3
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 
-http_proxy  = "http://proxy62.iitd.ac.in:3128"
-https_proxy  = "https://proxy62.iitd.ac.in:3128"
-ftp_proxy   = "http://proxy62.iitd.ac.in:3128"
+http_proxy  = "http://proxy22.iitd.ac.in:3128"
+https_proxy  = "https://proxy22.iitd.ac.in:3128"
+ftp_proxy   = "http://proxy22.iitd.ac.in:3128"
 
 proxyDict = {
               "http"  : http_proxy,
