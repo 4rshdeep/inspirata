@@ -1,4 +1,5 @@
 test.py
 *.json
+environment.sh
 logfile.txt
 __pycache__
