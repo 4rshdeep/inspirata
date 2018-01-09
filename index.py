@@ -3,6 +3,7 @@ import json
 from  configparser import *
 import markovify
 from sentiment_analysis import get_sentiment, get_sentiment_val
+from get_language import get_language, get_language_val
 # from bs4 import BeautifulSoup
 
 import tweepy
@@ -99,6 +100,16 @@ class MyListener(StreamListener):
 
             print('----------'*5)
             print("tweet: " + maintain_log['tweet'])
+
+            # detect the language of the tweet
+            tweet_language, tweet_language_score = get_language(maintain_log['tweet'])
+
+            if tweet_language_score<0.80 or tweet_language != "English":
+                logfile.write("tweet: " + maintain_log['tweet'])
+                logfile.write("NR :: language :: "+str(tweet_language_score) + "response:: " + maintain_log['response'])
+                print("NR :: language_score_is_low :: "+str(tweet_language_score))
+                return True
+
             tweet_sentiment = get_sentiment(maintain_log['tweet'])
             response_sentiment = get_sentiment(maintain_log['response'])
             
