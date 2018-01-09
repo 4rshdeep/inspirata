@@ -1,5 +1,11 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <!-- <p>Welcome, start editing this template in <code>apps/base/templates/base/home.html</code></p> -->
+	
+	{% if user.is_authenticated %}
+        <p>Welcome {{ user.username }} !!!</p>   
+		<a href="{% url 'start' %}"><button type="button" class="btn btn-success">Start</button></a>
+		<a href="{% url 'stop' %}"><button type="button" class="btn btn-danger">Stop</button></a>    
+    {% endif %}
+    
 {% endblock %}

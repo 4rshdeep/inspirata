@@ -16,11 +16,11 @@ sitemaps = {
 }
 
 urlpatterns = [
-    url(r'', include('base.urls')),
+    url(r'^', include('base.urls')),
 
     # Admin
     url(r'^admin/', admin.site.urls),
-    url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
+    # url(r'^admin/doc/', include('django.contrib.admindocs.urls')),
 
     # Sitemap
     url(r'^sitemap\.xml$', index, {'sitemaps': sitemaps}),

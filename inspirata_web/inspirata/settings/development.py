@@ -1,7 +1,7 @@
 from .base import *  # noqa
 
 DEBUG = True
-
+LOGIN_REDIRECT_URL = 'home'
 INTERNAL_IPS = ["127.0.0.1"]
 
 SECRET_KEY = "secret"
@@ -34,7 +34,7 @@ def show_toolbar(request):
     return not request.is_ajax() and request.user and request.user.is_superuser
 
 MIDDLEWARE += ["debug_toolbar.middleware.DebugToolbarMiddleware", ]
-INSTALLED_APPS += ["debug_toolbar", ]
+INSTALLED_APPS += ["debug_toolbar", "bootstrap3", ]
 
 DEBUG_TOOLBAR_CONFIG = {
     'INTERCEPT_REDIRECTS': False,

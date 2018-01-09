@@ -2,18 +2,133 @@ import time, os
 import json
 from  configparser import *
 import markovify
-from sentiment_analysis import get_sentiment, get_sentiment_val
-from get_language import get_language, get_language_val
-# from bs4 import BeautifulSoup
-
 import tweepy
 from tweepy import Stream
 from tweepy.streaming import StreamListener
+import http.client
+import urllib.request
+import urllib.parse
+import urllib.error
+import base64
+import requests
+import urllib3
+import os
+
+
+
+
+
+
+
+
+
+
+
+###############################
+
+
+
+
+
+LOCATION = "southcentralus"
+URL = LOCATION + ".api.cognitive.microsoft.com"
+APIKEY=os.environ['TEXT_API_KEY']
 
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
 ACCESS_SECRET = os.environ['ACCESS_SECRET']
+
+
+
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
+
+#export environment variables
+# http_proxy  = os.environ['http_proxy']
+# https_proxy  = os.environ['https_proxy']
+# ftp_proxy   = os.environ['http_proxy']
+
+# proxyDict = {
+#               "http"  : http_proxy,
+#               "https" : https_proxy,
+#               "ftp"   : ftp_proxy
+#             }
+
+def get_sentiment_val(data):
+    # return data['documents']['score']
+    return json.loads(data)['documents'][0]['score']
+        
+
+
+def get_sentiment(text):
+    '''Gets the sentiments for a text and returns the information.'''
+    
+    ## TODO CHECK IF LANGUAGE IS ENGLISH USING APIs
+    documents = {   
+            'documents': [
+        {'id': '1', 'language': 'en',
+            'text': '-'}
+    ]}
+
+    documents['documents'][0]['text'] = text
+    # Request headers    
+    headers = {
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': APIKEY,
+    }
+    
+    body = json.dumps(documents)
+    
+    params = urllib.parse.urlencode({ })
+    
+    try:
+        ENDPOINT = "https://"+URL+"/text/analytics/v2.0/sentiment?%s" % params
+        data = requests.post(ENDPOINT, headers = headers, data = body, verify=False)#, proxies=proxyDict)
+        
+
+        return get_sentiment_val(data.text)
+    except Exception as e:
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
+#############################
+
+def get_language_val(data):
+    # return data['documents']['score']
+    return json.loads(data)['documents'][0]['detectedLanguages'][0]['name'], json.loads(data)['documents'][0]['detectedLanguages'][0]['score']
+        
+
+
+def get_language(text):
+    '''Gets the language for a text and returns the information.'''
+    
+    ## TODO CHECK IF LANGUAGE IS ENGLISH USING APIs
+    documents = {   
+            'documents': [
+        {'id': '1',
+            'text': '-'}
+    ]}
+
+    documents['documents'][0]['text'] = text
+    # Request headers    
+    headers = {
+        'Content-Type': 'application/json',
+        'Ocp-Apim-Subscription-Key': APIKEY,
+    }
+    
+    body = json.dumps(documents)
+    
+    params = urllib.parse.urlencode({ })
+    
+    try:
+        ENDPOINT = "https://"+URL+"/text/analytics/v2.0/languages?%s" % params
+        data = requests.post(ENDPOINT, headers = headers, data = body, verify=False)#, proxies=proxyDict)
+        print(data.text)
+        return get_language_val(data.text)
+    except Exception as e:
+        print("[Errno {0}] {1}".format(e.errno, e.strerror))
+
+#######################################################
+
 
 auth = tweepy.auth.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
@@ -33,16 +148,17 @@ api = tweepy.API(auth)
 #         sentence = " ".join(word.split("::")[0] for word in words)
 #         return sentence
 
-
+import os
+module_dir = os.path.dirname(__file__)  # get current directory
+file_path = os.path.join(module_dir, 'enco.txt')
 # Train Markov Chain
-with open('enco.txt') as f:
+with open(file_path) as f:
     text = f.read()
     text_model = markovify.Text(text)
     # text_model = POSifiedText(text)
 
 class MyListener(StreamListener):
     def on_data(self, data):
-        return False
         try:
 
             maintain_log = {}
