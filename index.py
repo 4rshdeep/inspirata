@@ -18,23 +18,26 @@ auth = tweepy.auth.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 
 api = tweepy.API(auth)
-import re
-import spacy
 
-nlp = spacy.load("en")
+# import nltk
+# import re
 
-class POSifiedText(markovify.Text):
-    def word_split(self, sentence):
-        return ["::".join((word.orth_, word.pos_)) for word in nlp(sentence)]
+# class POSifiedText(markovify.Text):
+#     def word_split(self, sentence):
+#         words = re.split(self.word_split_pattern, sentence)
+#         words = [ "::".join(tag) for tag in nltk.pos_tag(words) ]
+#         return words
 
-    def word_join(self, words):
-        sentence = " ".join(word.split("::")[0] for word in words)
-        return sentence
+#     def word_join(self, words):
+#         sentence = " ".join(word.split("::")[0] for word in words)
+#         return sentence
+
 
 # Train Markov Chain
-with open('encouraging.txt') as f:
+with open('enco.txt') as f:
     text = f.read()
-text_model = POSifiedText(text)
+    text_model = markovify.Text(text)
+    # text_model = POSifiedText(text)
 
 class MyListener(StreamListener):
     def on_data(self, data):
@@ -117,7 +120,7 @@ class MyListener(StreamListener):
             print('----------'*5)
             
 
-            api.update_status(maintain_log['response']+"  https://twitter.com/"+user_id+"/status/"+tweet_id)
+            api.update_status(maintain_log['response'] +"  https://twitter.com/"+user_id+"/status/"+tweet_id)
 
             time.sleep(10)
             
