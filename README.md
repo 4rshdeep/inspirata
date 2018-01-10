@@ -1,4 +1,5 @@
 # Code.fun.do
+![inspirata](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/inspirata.jpg)
 [](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/inspirata.jpg)
 # Inspirata
 ### Inspiring Lives.  
@@ -14,12 +15,12 @@ We used Microsoft Text Analytics APIs for Natural Language Processing and then u
 # Demo
 
  
-![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/1.PNG?token=AWWO-J0yOcngg55LKjCqveJAMqLHGungks5aX4kHwA%3D%3D "1")
+![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/1.PNG?token=AWWO-J0yOcngg55LKjCqveJAMqLHGungks5aX4kHwA%3D%3D)
 
 
-![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/3.PNG?token=AWWO-BThw6BaedKuUHDZpEVX050tQgbBks5aX4mXwA%3D%3D "3")
+![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/3.PNG?token=AWWO-BThw6BaedKuUHDZpEVX050tQgbBks5aX4mXwA%3D%3D)
 
-![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/4.PNG?token=AWWO-AJpcXNauHzR_L_zOf8QU6UwukXVks5aX4m0wA%3D%3D "4")
+![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/4.PNG?token=AWWO-AJpcXNauHzR_L_zOf8QU6UwukXVks5aX4m0wA%3D%3D)
 
 # Response
-![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/response/7.PNG?token=AWWO-Phgi0nVCgvXJYruiXTTU3o4axjIks5aX4oLwA%3D%3D "1")
+![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/response/7.PNG?token=AWWO-Phgi0nVCgvXJYruiXTTU3o4axjIks5aX4oLwA%3D%3D)
