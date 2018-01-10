@@ -11,10 +11,10 @@ We used Microsoft Language Detection apis for language detection and Sentiment a
 # Demo
 
 Inline-style: 
-![alt text](https://github.com/4rshdeep/Code.fun.do/images/1.PNG "1")
+![alt text](https://github.com/4rshdeep/Code.fun.do/1.PNG "1")
 
-![alt text](https://github.com/4rshdeep/Code.fun.do/images/2.PNG "2")
+![alt text](https://github.com/4rshdeep/Code.fun.do/2.PNG "2")
 
-![alt text](https://github.com/4rshdeep/Code.fun.do/images/3.PNG "3")
+![alt text](https://github.com/4rshdeep/Code.fun.do/3.PNG "3")
 
-![alt text](https://github.com/4rshdeep/Code.fun.do/images/4.PNG "4")
+![alt text](https://github.com/4rshdeep/Code.fun.do/4.PNG "4")
