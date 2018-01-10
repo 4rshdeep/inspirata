@@ -10,7 +10,7 @@ We used Microsoft Language Detection apis for language detection and Sentiment a
 
 # Demo
 
-Inline-style: 
+ 
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/1.PNG?token=AWWO-J0yOcngg55LKjCqveJAMqLHGungks5aX4kHwA%3D%3D "1")
 
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/2.PNG?token=AWWO-AzK5jg5-gbFCol-_0r3efOQzUraks5aX4l6wA%3D%3D "2")
