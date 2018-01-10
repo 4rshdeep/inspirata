@@ -10,8 +10,8 @@ from .views import *
 urlpatterns = [
 	url(r'^login/$', auth_views.login, name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page' : '/'}, name='logout'),
-    url(r'^tweets/$', tweets, name='tweets'),
+    url(r'^$', tweets, name='tweets'),
     url(r'^start/', start, name='start'),
     url(r'^stop/', stop, name='stop'),
-    url(r'^$', home, name='home'),
+    url(r'^home/$', home, name='home'),
 ]

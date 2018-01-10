@@ -2,7 +2,7 @@
 
 from django.shortcuts import render, redirect
 # from . import index
-# from .index import MyListener
+# from .index import *
 import os
 import sys
 ################ index.py
@@ -26,7 +26,6 @@ import os
 LOCATION = "southcentralus"
 URL = LOCATION + ".api.cognitive.microsoft.com"
 APIKEY=os.environ['TEXT_API_KEY']
-
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
 ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
@@ -197,22 +196,22 @@ def start(request):
     if request.user.is_authenticated:
         should_i_go_on=True
         
-   CONSUMER_KEY = os.environ['CONSUMER_KEY']
-   CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
-   ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
-   ACCESS_SECRET = os.environ['ACCESS_SECRET']
-   auth = tweepy.auth.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
-   auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
-   api = tweepy.API(auth)
-   module_dir = os.path.dirname(__file__)  # get current directory
-   file_path = os.path.join(module_dir, 'enco.txt')
-   # Train Markov Chain
-   with open(file_path) as f:
-       text = f.read()
-       text_model = markovify.Text(text)
-   
-   twitter_stream = Stream(auth, MyListener())
-   twitter_stream.filter(track=['anxiety', 'sadness', 'suicide', 'depression', 'sad'])
+    CONSUMER_KEY = os.environ['CONSUMER_KEY']
+    CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
+    ACCESS_TOKEN = os.environ['ACCESS_TOKEN']
+    ACCESS_SECRET = os.environ['ACCESS_SECRET']
+    auth = tweepy.auth.OAuthHandler(CONSUMER_KEY, CONSUMER_SECRET)
+    auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
+    api = tweepy.API(auth)
+    module_dir = os.path.dirname(__file__)  # get current directory
+    file_path = os.path.join(module_dir, 'enco.txt')
+    # Train Markov Chain
+    with open(file_path) as f:
+        text = f.read()
+        text_model = markovify.Text(text)
+    
+    twitter_stream = Stream(auth, MyListener())
+    twitter_stream.filter(track=['anxiety', 'sadness', 'suicide', 'depression', 'sad'])
 
 
     if should_i_go_on:
