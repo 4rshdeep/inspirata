@@ -4,8 +4,7 @@ from  configparser import *
 import markovify
 from sentiment_analysis import get_sentiment, get_sentiment_val
 from get_language import get_language, get_language_val
-# from bs4 import BeautifulSoup
-
+from random import randint
 import tweepy
 from tweepy import Stream
 from tweepy.streaming import StreamListener
@@ -79,7 +78,7 @@ class MyListener(StreamListener):
 
             api.update_status(maintain_log['response'] +"  https://twitter.com/"+user_id+"/status/"+tweet_id)
 
-            time.sleep(600)
+            time.sleep(600+randint(0, 600))
             
         except BaseException as e:
             print("[Errno {0}] {1}".format(e.errno, e.strerror))
