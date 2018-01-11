@@ -18,9 +18,9 @@ APIKEY=os.environ['TEXT_API_KEY']
 urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 #export environment variables
-http_proxy  = ""#os.environ['http_proxy']
-https_proxy  = ""#os.environ['https_proxy']
-ftp_proxy   = ""#os.environ['http_proxy']
+http_proxy  = os.environ['http_proxy']
+https_proxy  = os.environ['https_proxy']
+ftp_proxy   = os.environ['http_proxy']
 
 proxyDict = {
               "http"  : http_proxy,
