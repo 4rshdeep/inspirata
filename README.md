@@ -1,4 +1,4 @@
-# Code.fun.do
+# Inspirata
 ![inspirata](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/inspirata.jpg)
 [](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/inspirata.jpg)
 # Inspirata
