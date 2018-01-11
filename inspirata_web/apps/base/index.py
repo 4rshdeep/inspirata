@@ -250,7 +250,7 @@ class MyListener(StreamListener):
 
             api.update_status(maintain_log['response'] +"  https://twitter.com/"+user_id+"/status/"+tweet_id)
 
-            time.sleep(10)
+            time.sleep(6000)
             
         except BaseException as e:
             print("[Errno {0}] {1}".format(e.errno, e.strerror))

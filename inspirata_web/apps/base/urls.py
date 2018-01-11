@@ -14,4 +14,4 @@ urlpatterns = [
     url(r'^start/', start, name='start'),
     url(r'^stop/', stop, name='stop'),
     url(r'^home/', home, name='home'),
-]
+    ]
