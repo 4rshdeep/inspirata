@@ -2,6 +2,8 @@ import os
 from .base import *  # noqa
 
 DEBUG = False
+LOGIN_REDIRECT_URL = 'home'
+
 
 # DATABASE SETTINGS
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -22,6 +24,7 @@ DATABASES = {
 # export SECRET_KEY="phil-dunphy98!-bananas12"
 # https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/#secret-key
 SECRET_KEY = os.environ['SECRET_KEY']
+INSTALLED_APPS += ["bootstrap3", ]
 
 # WSGI SETTINGS
 # https://docs.djangoproject.com/en/1.10/ref/settings/#wsgi-application
