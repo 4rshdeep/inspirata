@@ -31,4 +31,4 @@ We used Microsoft Text Analytics APIs for Natural Language Processing and then u
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/response/7.PNG?token=AWWO-Phgi0nVCgvXJYruiXTTU3o4axjIks5aX4oLwA%3D%3D)
 
 # Other:
-Currently inspirata updates a tweet with a 10 minute interval.
+Currently inspirata updates a tweet with a 20-30 minute interval.
