@@ -1,7 +1,6 @@
-# [Inspirata](http://www.cse.iitd.ac.in/~cs5160625/cfd.html)
 ![inspirata](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/inspirata.jpg)
 [](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/inspirata.jpg)
-# Inspirata
+# [Inspirata](http://www.cse.iitd.ac.in/~cs5160625/cfd.html)
 ### Inspiring Lives.  
 ### From the people. For the people.  
 Inspirata is a crowdsourced platform, which extracts motivating and encouraging tweets from Twitter and uses them to train a Markov Chain to produce encouraging words for those who might show signs of depression, suicide, anxiety etc.  
