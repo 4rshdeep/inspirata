@@ -87,10 +87,10 @@ class MyListener(StreamListener):
     def on_error(self, status):
         print(status)
         return True
-
-try:
-    twitter_stream = Stream(auth, MyListener())
-    twitter_stream.filter(track=['anxiety', 'sadness', 'suicide', 'depression', 'sad'])
-except Exception as e:
-    f = open("tweepy_error_log.txt", 'a')
-    f.write("[Errno {0}] {1}".format(e.errno, e.strerror))
+while(True):
+    try:
+        twitter_stream = Stream(auth, MyListener())
+        twitter_stream.filter(track=['anxiety', 'sadness', 'suicide', 'depression', 'sad'])
+    except Exception as e:
+        f = open("tweepy_error_log.txt", 'a')
+        f.write(time.strftime('Exception on Date: %Y-%m-%d Time: %H-%M-%S \n'))
