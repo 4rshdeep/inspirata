@@ -1,4 +1,4 @@
-# Inspirata
+# [Inspirata](http://www.cse.iitd.ac.in/~cs5160625/cfd.html)
 ![inspirata](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/inspirata.jpg)
 [](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/inspirata.jpg)
 # Inspirata
