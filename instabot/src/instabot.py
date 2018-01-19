@@ -505,6 +505,7 @@ class InstaBot:
                                          (self.media_by_tag[i]['node']['id'])
                             self.write_log(log_string)
                             like = self.like(self.media_by_tag[i]['node']['id'])
+                            print(self.get_instagram_url_from_media_id(self.media_by_tag[i]['node']['id']))
                             # comment = self.comment(self.media_by_tag[i]['id'], 'Cool!')
                             # follow = self.follow(self.media_by_tag[i]["owner"]["id"])
                             if like != 0:
