@@ -12,14 +12,14 @@ We used Microsoft Text Analytics APIs for Natural Language Processing and then u
 ### We are not using any hardcoded quotes. All the quotes are generated through Markov Chain.
 
 # Demo
-![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/1.PNG)
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/7.PNG)
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/3.PNG)
+![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/1.PNG)
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/4.PNG)
 
 # Response
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/11.PNG)
-![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/10.PNG)
+![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/10.png)
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/7.PNG)
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/6.PNG)
 
