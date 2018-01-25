@@ -2,4 +2,14 @@ Exception on Date: 2018-01-15 Time: 05-35-06
 Exception on Date: 2018-01-15 Time: 11-38-21
 Exception on Date: 2018-01-15 Time: 11-38-29
 Exception on Date: 2018-01-15 Time: 11-38-52
-Exception on Date: 2018-01-15 Time: 20-03-16
+Exception on Date: 2018-01-15 Time: 20-03-16Exception on Date: 2018-01-25 Time: 19-50-59 
+Exception on Date: 2018-01-25 Time: 19-51-01 
+Exception on Date: 2018-01-25 Time: 19-51-03 
+Exception on Date: 2018-01-25 Time: 19-51-05 
+Exception on Date: 2018-01-25 Time: 19-51-07 
+Exception on Date: 2018-01-25 Time: 19-51-09 
+Exception on Date: 2018-01-25 Time: 19-52-21 
+Exception on Date: 2018-01-25 Time: 19-52-22 
+Exception on Date: 2018-01-25 Time: 19-52-24 
+Exception on Date: 2018-01-25 Time: 19-52-26 
+Exception on Date: 2018-01-25 Time: 19-52-28 
