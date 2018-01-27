@@ -14,13 +14,15 @@ from tqdm import tqdm
 from . import limits, delay
 
 def comment(self, media_id, comment_text):
-    if self.is_commented(media_id):
+    # print(comment_text)
+    # return
+    # if self.is_commented(media_id):
+        # return True
+    # if limits.check_if_bot_can_comment(self):
+        # delay.comment_delay(self)
+    if super(self.__class__, self).comment(media_id, comment_text):
+        self.total_commented += 1
         return True
-    if limits.check_if_bot_can_comment(self):
-        delay.comment_delay(self)
-        if super(self.__class__, self).comment(media_id, comment_text):
-            self.total_commented += 1
-            return True
     else:
         self.logger.info("Out of comments for today.")
     return False

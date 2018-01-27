@@ -13,15 +13,23 @@ def upload_photo(self, photo, caption=None, upload_id=None):
     return False
 
 
-def download_photo(self, media_id, path='photos/', filename=None, description=False):
+def download_photo(self, media_id, path='photos/', filename=None, description=True):
     delay.small_delay(self)
     if not os.path.exists(path):
         os.makedirs(path)
+    # print(description)
     if description:
         media = self.get_media_info(media_id)[0]
         caption = media['caption']['text']
+        print(caption)
         with open('{path}{0}_{1}.txt'.format(media['user']['username'], media_id, path=path), encoding='utf8', mode='w') as file_descriptor:
             file_descriptor.write(caption)
+    else:
+        media = self.get_media_info(media_id)[0]
+        caption = media['caption']['text']
+        print(caption)
+        
+
     photo = super(self.__class__, self).downloadPhoto(media_id, filename, False, path)
     if photo:
         return photo
@@ -29,7 +37,7 @@ def download_photo(self, media_id, path='photos/', filename=None, description=Fa
     return False
 
 
-def download_photos(self, medias, path, description=False):
+def download_photos(self, medias, path, description=True):
     broken_items = []
     if not medias:
         self.logger.info("Nothing to downloads.")
@@ -37,8 +45,24 @@ def download_photos(self, medias, path, description=False):
     self.logger.info("Going to download %d medias." % (len(medias)))
     for media in tqdm(medias):
         print(media)
+        print(get_instagram_url_from_media_id(media))
+
+        ######## TODO COMMENT
+        self.comment(media, "inspirata")
         if not self.download_photo(media, path, description=description):
             delay.error_delay(self)
             broken_items = medias[medias.index(media):]
             break
     return broken_items
+
+def get_instagram_url_from_media_id(media_id, url_flag=True, only_code=None):
+    media_id = int(media_id)
+    if url_flag is False: return ""
+    else:
+        alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-_'
+        shortened_id = ''
+        while media_id > 0:
+            media_id, idx = divmod(media_id, 64)
+            shortened_id = alphabet[idx] + shortened_id
+        if only_code: return shortened_id
+        else: return 'instagram.com/p/' + shortened_id + '/'
