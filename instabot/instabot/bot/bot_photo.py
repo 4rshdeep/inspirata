@@ -1,7 +1,21 @@
 import os
 from tqdm import tqdm
-
+from sentiment_analysis import get_sentiment, get_sentiment_val
+from emotion_analysis import get_image_sentiment 
 from . import delay
+import markovify
+import json
+import re
+
+class POSifiedText(markovify.Text):
+    def word_split(self, sentence):
+        words = re.split(self.word_split_pattern, sentence)
+        words = [ "::".join(tag) for tag in nltk.pos_tag(words) ]
+        return words
+
+    def word_join(self, words):
+        sentence = " ".join(word.split("::")[0] for word in words)
+        return sentence
 
 
 def upload_photo(self, photo, caption=None, upload_id=None):
@@ -18,21 +32,40 @@ def download_photo(self, media_id, path='photos/', filename=None, description=Tr
     if not os.path.exists(path):
         os.makedirs(path)
     # print(description)
-    if description:
-        media = self.get_media_info(media_id)[0]
-        caption = media['caption']['text']
+    media = self.get_media_info(media_id)[0]
+    caption = media['caption']['text']
+        
+    if caption:
         print(caption)
-        with open('{path}{0}_{1}.txt'.format(media['user']['username'], media_id, path=path), encoding='utf8', mode='w') as file_descriptor:
-            file_descriptor.write(caption)
+        caption_sentiment = get_sentiment(caption)
+        print()
+        print("caption_sentiment::", end="")
+        print(caption_sentiment)
+        if caption_sentiment < 0.3:
+            model_json = json.load(open('../../examples/model.json', 'r'))
+            reconstituted_model = POSifiedText.from_json(model_json)
+            print("caption::"+caption)
+            print("response::"+reconstituted_model.make_short_sentence(140))
+        elif caption_sentiment < 0.5:
+            photo = super(self.__class__, self).downloadPhoto(media_id, filename, False, path)
+            if photo:
+                sad_sentiment, max_key = get_image_sentiment(photo)
+                if sad_sentiment == None:
+                    return True
+                return photo
+            happy_array = ['happiness', 'surprise']
+            if (max_key not in happy_array) and sad_sentiment > 0.5:
+                print("caption::"+caption)
+                print("response::"+reconstituted_model.make_short_sentence(140))
+        else:
+            return True ##
     else:
         media = self.get_media_info(media_id)[0]
         caption = media['caption']['text']
         print(caption)
         
 
-    photo = super(self.__class__, self).downloadPhoto(media_id, filename, False, path)
-    if photo:
-        return photo
+    
     self.logger.info("Media with %s is not %s ." % (media_id, 'downloaded'))
     return False
 
@@ -48,7 +81,7 @@ def download_photos(self, medias, path, description=True):
         print(get_instagram_url_from_media_id(media))
 
         ######## TODO COMMENT
-        self.comment(media, "inspirata")
+        # self.comment(media, "inspirata")
         if not self.download_photo(media, path, description=description):
             delay.error_delay(self)
             broken_items = medias[medias.index(media):]

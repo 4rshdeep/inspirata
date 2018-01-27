@@ -27,6 +27,7 @@ def downloadPhoto(self, media_id, filename, media=False, path='photos/'):
         with open(path + filename, 'wb') as f:
             response.raw.decode_content = True
             shutil.copyfileobj(response.raw, f)
+        print(os.path.abspath(path + filename))
         return os.path.abspath(path + filename)
 
 

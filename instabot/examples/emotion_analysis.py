@@ -47,7 +47,7 @@ def processRequest( json, data, headers, params ):
         break
     return result
 
-def get_sentiment(path):
+def get_image_sentiment(path):
     with open(path, 'rb') as f:
         data = f.read()
     try:
@@ -69,17 +69,18 @@ def get_sentiment(path):
 
         return my_param, max_key
     except Exception as e:
-        print(response)
+        # print(response)
         print("Error")
+        return None, None
 
-import os
-dir_path='test/'
-images = os.listdir('test')
-for image in images:
-    image = dir_path+image
-    print(image, end=" ")
-    print(get_sentiment(image))
-    # os.remove(image)
+# import os
+# dir_path='test/'
+# images = os.listdir('test')
+# for image in images:
+#     image = dir_path+image
+#     print(image, end=" ")
+#     print(get_sentiment(image))
+#     # os.remove(image)
     
 # if result is not None:
     # Load the original image from disk
