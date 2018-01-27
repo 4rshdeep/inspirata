@@ -221,7 +221,7 @@ testFacebookPageData("5281959998", access_token)
 
 
 # if __name__ == '__main__':
-scrapeFacebookPageFeedStatus(group_id, access_token, since_date, until_date)
+# scrapeFacebookPageFeedStatus(group_id, access_token, since_date, until_date)
 
 
 # The CSV can be opened in all major statistical programs. Have fun! :)
