@@ -13,7 +13,6 @@ from tqdm import tqdm
 
 from . import limits, delay
 
-
 def comment(self, media_id, comment_text):
     if self.is_commented(media_id):
         return True

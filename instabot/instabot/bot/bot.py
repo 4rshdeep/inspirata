@@ -365,6 +365,7 @@ class Bot(API):
         return download_photo(self, media_id, path, filename, description)
 
     def download_photos(self, medias, path='photos/', description=False):
+        # print("Lol")
         return download_photos(self, medias, path, description)
 
     def upload_photo(self, photo, caption=None, upload_id=None):

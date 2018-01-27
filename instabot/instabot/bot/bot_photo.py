@@ -36,6 +36,7 @@ def download_photos(self, medias, path, description=False):
         return broken_items
     self.logger.info("Going to download %d medias." % (len(medias)))
     for media in tqdm(medias):
+        print(media)
         if not self.download_photo(media, path, description=description):
             delay.error_delay(self)
             broken_items = medias[medias.index(media):]
