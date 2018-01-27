@@ -31,15 +31,9 @@ def request_until_succeed(url):
     success = False
     while success is False:
         try:
-<<<<<<< HEAD
             response = requests.get(url, proxies = proxyDict)
             if response.status_code == 200:
                 success = True
-=======
-            response = requests.get(url)    
-            # if response.getcode() == 200:
-                # success = True
->>>>>>> 3e349e852b543ba36a4bbda9736e957393e6734f
         except Exception as e:
             print(e)
             time.sleep(5)
