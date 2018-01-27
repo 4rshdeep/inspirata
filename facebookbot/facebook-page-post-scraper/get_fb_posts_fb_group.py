@@ -25,7 +25,7 @@ def request_until_succeed(url):
     success = False
     while success is False:
         try:
-            response = urlopen(req)
+            response = requests.get(url).json()
             if response.getcode() == 200:
                 success = True
         except Exception as e:
