@@ -161,7 +161,7 @@ def scrapeFacebookPageFeedStatus(group_id, access_token, since_date, until_date)
             group_id, scrape_starttime))
 
         while has_next_page:
-            print("hi")
+            
             until = '' if until is '' else "&until={}".format(until)
             paging = '' if until is '' else "&__paging_token={}".format(paging)
             base_url = base + node + parameters + since + until + paging
@@ -169,7 +169,7 @@ def scrapeFacebookPageFeedStatus(group_id, access_token, since_date, until_date)
             url = getFacebookPageFeedUrl(base_url)
             statuses = json.loads(request_until_succeed(url))
             reactions = getReactionsForStatuses(base_url)
-            print("hihi")
+            
 
             for status in statuses['data']:
 
