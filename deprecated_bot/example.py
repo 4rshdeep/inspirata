@@ -8,10 +8,14 @@ from src.check_status import check_status
 from src.feed_scanner import feed_scanner
 from src.follow_protocol import follow_protocol
 from src.unfollow_protocol import unfollow_protocol
+import os
 
+USERNAME=os.environ['INSTA_USERNAME']
+PASSWORD=os.environ['INSTA_PASSWORD']
 bot = InstaBot(
-    login="",
-    password="",
+    proxy=None,
+    login=USERNAME,
+    password=PASSWORD,
     like_per_day=1,
     comments_per_day=0,
     tag_list=['depressed', 'sad', 'suicidal', 'anxiety', 'depression', 'sadness'],
@@ -27,17 +31,17 @@ bot = InstaBot(
     proxy='',
     # List of list of words, each of which will be used to generate comment
     # For example: "This shot feels wow!"
-    comment_list=[["this", "the", "your"],
-                  ["photo", "picture", "pic", "shot", "snapshot"],
-                  ["is", "looks", "feels", "is really"],
-                  ["great", "super", "good", "very good", "good", "wow",
-                   "WOW", "cool", "GREAT","magnificent", "magical",
-                   "very cool", "stylish", "beautiful", "so beautiful",
-                   "so stylish", "so professional", "lovely",
-                   "so lovely", "very lovely", "glorious","so glorious",
-                   "very glorious", "adorable", "excellent", "amazing"],
-                  [".", "..", "...", "!", "!!", "!!!"]],
-    # Use unwanted_username_list to block usernames containing a string
+    # comment_list=[["this", "the", "your"],
+    #               ["photo", "picture", "pic", "shot", "snapshot"],
+    #               ["is", "looks", "feels", "is really"],
+    #               ["great", "super", "good", "very good", "good", "wow",
+    #                "WOW", "cool", "GREAT","magnificent", "magical",
+    #                "very cool", "stylish", "beautiful", "so beautiful",
+    #                "so stylish", "so professional", "lovely",
+    #                "so lovely", "very lovely", "glorious","so glorious",
+    #                "very glorious", "adorable", "excellent", "amazing"],
+    #               [".", "..", "...", "!", "!!", "!!!"]],
+    # # Use unwanted_username_list to block usernames containing a string
     ## Will do partial matches; i.e. 'mozart' will block 'legend_mozart'
     ### 'free_followers' will be blocked because it contains 'free'
     unwanted_username_list=[

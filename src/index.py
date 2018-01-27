@@ -20,7 +20,7 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 api = tweepy.API(auth)
 
 # Train Markov Chain
-with open('encouraging.txt') as f:
+with open('enco.txt') as f:
     text = f.read()
     text_model = markovify.Text(text)
     # text_model = POSifiedText(text)
@@ -92,6 +92,6 @@ while(True):
         twitter_stream = Stream(auth, MyListener())
         twitter_stream.filter(track=['anxiety', 'sadness', 'suicide', 'depression', 'sad'])
     except Exception as e:
-        print("[Errno {0}] {1}".format(e.errno, e.strerror))
         f = open("tweepy_error_log.txt", 'a')
-        f.write(time.strftime('Exception on Date: %Y-%m-%d Time: %H-%M-%S \n'))
+        print("Exception Occured")
+        f.write(time.strftime('\n Exception on Date: %Y-%m-%d Time: %H-%M-%S \n'))
