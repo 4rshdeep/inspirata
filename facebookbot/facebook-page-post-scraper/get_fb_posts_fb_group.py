@@ -4,29 +4,34 @@ import csv
 import time
 import re, os, json
 import urllib.request as urllib2 
+import requests
 try:
     from urllib.request import urlopen, Request
 except ImportError:
     from urllib2 import urlopen, Request
 
-app_id = os.environ['APP_ID']
-app_secret = os.environ['APP_SECRET']
-group_id = "115194395496242"
+app_id = "340963926402035"
+app_secret = "b9c46f67e14f5d69c343e0df06bea0bd"
+group_id = "531752773523381"
 
 # input date formatted as YYYY-MM-DD
-since_date = "2015-01-01"
-until_date = "2018-01-01"
+since_date = "2018-01-02"
+until_date = "2018-01-27"
 
 access_token = app_id + "|" + app_secret
-
+proxyDict = {
+              "http"  : "",
+              "https" : "",
+              "ftp"   : ""
+            }
 
 def request_until_succeed(url):
     req = Request(url)
     success = False
     while success is False:
         try:
-            response = requests.get(url).json()
-            if response.getcode() == 200:
+            response = requests.get(url, proxies = proxyDict)
+            if response.status_code == 200:
                 success = True
         except Exception as e:
             print(e)
@@ -35,7 +40,7 @@ def request_until_succeed(url):
             print("Error for URL {}: {}".format(url, datetime.datetime.now()))
             print("Retrying.")
 
-    return response.read()
+    return response.text
 
 # Needed to write tricky unicode correctly to csv
 
@@ -156,6 +161,7 @@ def scrapeFacebookPageFeedStatus(group_id, access_token, since_date, until_date)
             group_id, scrape_starttime))
 
         while has_next_page:
+            print("hi")
             until = '' if until is '' else "&until={}".format(until)
             paging = '' if until is '' else "&__paging_token={}".format(paging)
             base_url = base + node + parameters + since + until + paging
@@ -163,6 +169,7 @@ def scrapeFacebookPageFeedStatus(group_id, access_token, since_date, until_date)
             url = getFacebookPageFeedUrl(base_url)
             statuses = json.loads(request_until_succeed(url))
             reactions = getReactionsForStatuses(base_url)
+            print("hihi")
 
             for status in statuses['data']:
 
@@ -204,7 +211,7 @@ def testFacebookPageData(page_id, access_token):
     url = base + node + parameters
     import requests
 
-    response = requests.get(url).json()
+    response = requests.get(url, proxies = proxyDict).json()
     # retrieve data
     # req = urllib2.Request(url)
     # response = urllib2.urlopen(req)
@@ -215,12 +222,11 @@ def testFacebookPageData(page_id, access_token):
     # print (json.dump(response, indent=4, sort_keys=True))
     
 
-testFacebookPageData("5281959998", access_token)
-
+testFacebookPageData("531752773523381", access_token)
 
 
 # if __name__ == '__main__':
-scrapeFacebookPageFeedStatus(group_id, access_token, since_date, until_date)
+scrapeFacebookPageFeedStatus("531752773523381", access_token, since_date, until_date)
 
 
 # The CSV can be opened in all major statistical programs. Have fun! :)
