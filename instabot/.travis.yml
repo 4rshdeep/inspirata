@@ -1,0 +1,20 @@
+language: python
+
+python:
+  - "2.7"
+  - "3.5"
+  - "3.6"
+
+install:
+  - pip install -r requirements.txt
+
+script:
+ - pyflakes instabot tests examples
+ - pycodestyle --ignore=E223,E501 instabot tests
+ - pycodestyle --ignore=E223,E402,E501 examples
+ - py.test
+
+branches:
+  only:
+    - master
+cache: pip
