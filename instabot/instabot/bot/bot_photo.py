@@ -1,11 +1,13 @@
 import os
 from tqdm import tqdm
 from sentiment_analysis import get_sentiment, get_sentiment_val
-from emotion_analysis import get_image_sentiment 
+from emotion_analysis import get_image_sentiment
+from get_language import get_language
 from . import delay
 import markovify
 import json
 import re
+import time
 
 class POSifiedText(markovify.Text):
     def word_split(self, sentence):
@@ -31,21 +33,37 @@ def download_photo(self, media_id, path='photos/', filename=None, description=Tr
     delay.small_delay(self)
     if not os.path.exists(path):
         os.makedirs(path)
-    # print(description)
+    
     media = self.get_media_info(media_id)[0]
     caption = media['caption']['text']
-        
+    model_json = json.load(open('model.json', 'r'))
+    reconstituted_model = POSifiedText.from_json(model_json)
+
+    urls_save = open('links.txt', 'a')
     if caption:
         print(caption)
         caption_sentiment = get_sentiment(caption)
         print()
         print("caption_sentiment::", end="")
         print(caption_sentiment)
+
+        language, language_score = get_language(caption)
+        print("language score", end = " ")
+        print(language_score)
+        
+        if language_score<0.80 or language != "English":
+            return True
+
         if caption_sentiment < 0.3:
-            model_json = json.load(open('../../examples/model.json', 'r'))
-            reconstituted_model = POSifiedText.from_json(model_json)
             print("caption::"+caption)
-            print("response::"+reconstituted_model.make_short_sentence(140))
+            res = reconstituted_model.make_short_sentence(140)
+            print("response::"+res)
+            self.comment(media_id, res)
+            urls_save.write(get_instagram_url_from_media_id(media_id)+"\n")
+            print(get_instagram_url_from_media_id(media_id))
+            time.sleep(10)
+            
+            return True
         elif caption_sentiment < 0.5:
             photo = super(self.__class__, self).downloadPhoto(media_id, filename, False, path)
             if photo:
@@ -56,16 +74,15 @@ def download_photo(self, media_id, path='photos/', filename=None, description=Tr
             happy_array = ['happiness', 'surprise']
             if (max_key not in happy_array) and sad_sentiment > 0.5:
                 print("caption::"+caption)
-                print("response::"+reconstituted_model.make_short_sentence(140))
+                res = reconstituted_model.make_short_sentence(140)
+                print("response::"+res)
+                self.comment(media_id, res)
+                urls_save.write(get_instagram_url_from_media_id(media_id)+"\n")
+                print(get_instagram_url_from_media_id(media_id))
+                time.sleep(10)
         else:
-            return True ##
-    else:
-        media = self.get_media_info(media_id)[0]
-        caption = media['caption']['text']
-        print(caption)
-        
+            return True 
 
-    
     self.logger.info("Media with %s is not %s ." % (media_id, 'downloaded'))
     return False
 
@@ -77,11 +94,6 @@ def download_photos(self, medias, path, description=True):
         return broken_items
     self.logger.info("Going to download %d medias." % (len(medias)))
     for media in tqdm(medias):
-        print(media)
-        print(get_instagram_url_from_media_id(media))
-
-        ######## TODO COMMENT
-        # self.comment(media, "inspirata")
         if not self.download_photo(media, path, description=description):
             delay.error_delay(self)
             broken_items = medias[medias.index(media):]

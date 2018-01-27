@@ -10,7 +10,7 @@ import delay
 bot = Bot()
 bot.login(username='_inspirata', password='inspirata001')
 
-hashtags = ['sad']
+hashtags = ['sad', 'depressed', 'suicide', 'suicidal']
 for hashtag in hashtags:
     medias = bot.get_hashtag_medias(hashtag)
     bot.download_photos(medias)
