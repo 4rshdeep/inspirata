@@ -29,7 +29,7 @@ if not os.path.exists(comments_file_name):
     print("Can't find '%s' file." % comments_file_name)
     exit()
 
-bot = Bot(comments_file=comments_file_name)
+bot = Bot(max_comments_per_day=100, comments_file=comments_file_name)
 bot.login()
 bot.comment_medias(bot.get_timeline_medias())
 bot.logout()

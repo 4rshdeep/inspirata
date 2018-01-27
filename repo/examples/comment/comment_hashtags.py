@@ -26,7 +26,7 @@ if not os.path.exists(comments_file_name):
     print("Can't find '%s' file." % comments_file_name)
     exit()
 
-bot = Bot(comments_file=comments_file_name)
+bot = Bot(max_comments_per_day=100, comments_file=comments_file_name)
 bot.login()
 for hashtag in hashtags:
     bot.comment_hashtag(hashtag)
