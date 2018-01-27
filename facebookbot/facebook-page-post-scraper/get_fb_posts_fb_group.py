@@ -1,4 +1,5 @@
 import json
+import requests
 import datetime
 import csv
 import time
@@ -30,9 +31,15 @@ def request_until_succeed(url):
     success = False
     while success is False:
         try:
+<<<<<<< HEAD
             response = requests.get(url, proxies = proxyDict)
             if response.status_code == 200:
                 success = True
+=======
+            response = requests.get(url)    
+            # if response.getcode() == 200:
+                # success = True
+>>>>>>> 3e349e852b543ba36a4bbda9736e957393e6734f
         except Exception as e:
             print(e)
             time.sleep(5)
@@ -227,6 +234,7 @@ testFacebookPageData("531752773523381", access_token)
 
 # if __name__ == '__main__':
 scrapeFacebookPageFeedStatus("531752773523381", access_token, since_date, until_date)
+# scrapeFacebookPageFeedStatus(group_id, access_token, since_date, until_date)
 
 
 # The CSV can be opened in all major statistical programs. Have fun! :)
