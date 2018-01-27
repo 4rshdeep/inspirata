@@ -25,7 +25,7 @@ We used Microsoft Text Analytics APIs for Natural Language Processing and then u
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/4.PNG)
 ### Instagram
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/12.png)
-![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/13.png =100x20)
+![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/13.png){ width=50% }
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/14.png)
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/15.png)
 
