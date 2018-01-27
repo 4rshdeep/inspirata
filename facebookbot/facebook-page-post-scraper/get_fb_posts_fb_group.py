@@ -1,4 +1,5 @@
 import json
+import requests
 import datetime
 import csv
 import time
@@ -25,9 +26,9 @@ def request_until_succeed(url):
     success = False
     while success is False:
         try:
-            response = requests.get(url).json()
-            if response.getcode() == 200:
-                success = True
+            response = requests.get(url)    
+            # if response.getcode() == 200:
+                # success = True
         except Exception as e:
             print(e)
             time.sleep(5)
@@ -35,7 +36,7 @@ def request_until_succeed(url):
             print("Error for URL {}: {}".format(url, datetime.datetime.now()))
             print("Retrying.")
 
-    return response.read()
+    return response.text
 
 # Needed to write tricky unicode correctly to csv
 
