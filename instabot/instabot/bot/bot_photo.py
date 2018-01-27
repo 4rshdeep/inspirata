@@ -41,29 +41,15 @@ def download_photo(self, media_id, path='photos/', filename=None, description=Tr
 
     urls_save = open('links.txt', 'a')
     if caption:
-        print(caption)
         caption_sentiment = get_sentiment(caption)
-        print()
-        print("caption_sentiment::", end="")
-        print(caption_sentiment)
 
         language, language_score = get_language(caption)
-        print("language score", end = " ")
-        print(language_score)
         
         if language_score<0.80 or language != "English":
             return True
 
         if caption_sentiment < 0.3:
-            print("caption::"+caption)
-            res = reconstituted_model.make_short_sentence(140)
-            print("response::"+res)
-            self.comment(media_id, res)
-            self.like(media_id)
-            urls_save.write(get_instagram_url_from_media_id(media_id)+"\n")
-            print(get_instagram_url_from_media_id(media_id))
-            time.sleep(10)
-            
+            comment_and_log(self, caption, reconstituted_model, media_id, urls_save)
             return True
         elif caption_sentiment < 0.5:
             photo = super(self.__class__, self).downloadPhoto(media_id, filename, False, path)
@@ -74,20 +60,29 @@ def download_photo(self, media_id, path='photos/', filename=None, description=Tr
                 return photo
             happy_array = ['happiness', 'surprise']
             if (max_key not in happy_array) and sad_sentiment > 0.5:
-                print("caption::"+caption)
-                res = reconstituted_model.make_short_sentence(140)
-                print("response::"+res)
-                self.comment(media_id, res)
-                self.like(media_id)
-                urls_save.write(get_instagram_url_from_media_id(media_id)+"\n")
-                print(get_instagram_url_from_media_id(media_id))
-                time.sleep(10)
+                comment_and_log(self, caption, reconstituted_model, media_id, urls_save)
+                
+                # urls_save.write("caption::"+caption+"  \n")
+                # res = reconstituted_model.make_short_sentence(140)
+                # urls_save.write("response::"+res+"\n")
+                # self.comment(media_id, res)
+                # self.like(media_id)
+                # urls_save.write(get_instagram_url_from_media_id(media_id)+"\n")
+            return True
         else:
             return True 
 
     self.logger.info("Media with %s is not %s ." % (media_id, 'downloaded'))
     return False
 
+def comment_and_log(self, caption, reconstituted_model, media_id, urls_save):
+    urls_save.write("caption::"+caption[:30]+"  \n")
+    res = reconstituted_model.make_short_sentence(140)
+    urls_save.write("response::"+res+"\n")
+    self.comment(media_id, res)
+    self.like(media_id)
+    urls_save.write("link::"+get_instagram_url_from_media_id(media_id)+"\n")
+    return 
 
 def download_photos(self, medias, path, description=True):
     broken_items = []
