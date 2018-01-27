@@ -8,6 +8,10 @@ from random import randint
 import tweepy
 from tweepy import Stream
 from tweepy.streaming import StreamListener
+import nltk, re
+
+import urllib3
+urllib3.disable_warnings(urllib3.exceptions.InsecureRequestWarning)
 
 CONSUMER_KEY = os.environ['CONSUMER_KEY']
 CONSUMER_SECRET = os.environ['CONSUMER_SECRET']
@@ -19,11 +23,21 @@ auth.set_access_token(ACCESS_TOKEN, ACCESS_SECRET)
 
 api = tweepy.API(auth)
 
+class POSifiedText(markovify.Text):
+    def word_split(self, sentence):
+        words = re.split(self.word_split_pattern, sentence)
+        words = [ "::".join(tag) for tag in nltk.pos_tag(words) ]
+        return words
+
+    def word_join(self, words):
+        sentence = " ".join(word.split("::")[0] for word in words)
+        return sentence
+
 # Train Markov Chain
-with open('enco.txt') as f:
+with open('encouraging.txt') as f:
     text = f.read()
-    text_model = markovify.Text(text)
-    # text_model = POSifiedText(text)
+    # text_model = markovify.Text(text)
+    text_model = POSifiedText(text)
 
 class MyListener(StreamListener):
     def on_data(self, data):
@@ -76,7 +90,7 @@ class MyListener(StreamListener):
             print('----------'*5)
             
 
-            api.update_status(maintain_log['response'] +"  https://twitter.com/"+user_id+"/status/"+tweet_id)
+            api.update_status(maintain_log['response'])# +"  https://twitter.com/"+user_id+"/status/"+tweet_id)
 
             time.sleep(1200+randint(0, 600))
             
