@@ -1,22 +1,48 @@
 import argparse
 import os
 import sys
+from tqdm import tqdm
 
 sys.path.append(os.path.join(sys.path[0], '../'))
-from instabot import Bot, delay
-# import delay
+from instabot import Bot
+import delay
 
 bot = Bot()
 bot.login(username='_inspirata', password='inspirata001')
 
-def download_photos(self, medias, path, description=False):
+def mediaInfo(self, mediaId):
+        data = json.dumps({
+            '_uuid': self.uuid,
+            '_uid': self.user_id,
+            '_csrftoken': self.token,
+            'media_id': mediaId
+        })
+    return self.SendRequest('media/' + str(mediaId) + '/info/', self.generateSignature(data))
+
+    
+def downloadPhoto(self, media_id, filename, media=False, path='photos/'):
+    if not media:
+        self.mediaInfo(media_id)
+        media = self.LastJson['items'][0]
+    filename = '{0}_{1}.jpg'.format(media['user']['username'], media_id) if not filename else '{0}.jpg'.format(filename)
+    images = media['image_versions2']['candidates']
+    if os.path.exists(path + filename):
+        return os.path.abspath(path + filename)
+    response = self.session.get(images[0]['url'], stream=True)
+    if response.status_code == 200:
+        with open(path + filename, 'wb') as f:
+            response.raw.decode_content = True
+            shutil.copyfileobj(response.raw, f)
+    return os.path.abspath(path + filename)
+
+def download_photos(self, medias, path='photos/', description=False):
     broken_items = []
     if not medias:
         self.logger.info("Nothing to downloads.")
         return broken_items
     self.logger.info("Going to download %d medias." % (len(medias)))
     for media in tqdm(medias):
-        if not self.download_photo(media, path, description=description):
+        if not download_photo(media, path, description=description):
             delay.error_delay(self)
             broken_items = medias[medias.index(media):]
             break
@@ -31,7 +57,7 @@ def download_photo(self, media_id, path='photos/', filename=None, description=Fa
         caption = media['caption']['text']
         with open('{path}{0}_{1}.txt'.format(media['user']['username'], media_id, path=path), encoding='utf8', mode='w') as file_descriptor:
             file_descriptor.write(caption)
-    photo = super(self.__class__, self).downloadPhoto(media_id, filename, False, path)
+    photo = downloadPhoto(super(self.__class__, self), media_id, filename, False, path)
     if photo:
         return photo
     self.logger.info("Media with %s is not %s ." % (media_id, 'downloaded'))
