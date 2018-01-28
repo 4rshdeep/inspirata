@@ -17,6 +17,18 @@ We used Microsoft Text Analytics APIs for Natural Language Processing and then u
 
 ### We are not using any hardcoded quotes. All the quotes are generated through Markov Chain.
 
+## Working
+
+![picture1](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/tweet1.PNG)  
+
+![picture2](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/tweet2.PNG)  
+
+Above two pictures are sentences from our file on which markov chain is trained, and as we can see how the below sentence is generated.  
+![picture2](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/final.PNG)
+
+
+
+
 # Demo
 ### Twitter
 ![alt text](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/7.PNG)
