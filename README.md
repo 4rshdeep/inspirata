@@ -19,7 +19,7 @@ We used Microsoft Text Analytics APIs for Natural Language Processing and then u
 
 ## Working
 
-![picture1](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/tweet1.PNG)  
+![picture1](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/tweet1.png)  
 
 ![picture2](https://raw.githubusercontent.com/4rshdeep/Code.fun.do/master/images/tweet2.PNG)  
 
