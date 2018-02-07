@@ -90,9 +90,9 @@ class MyListener(StreamListener):
             print('----------'*5)
             
 
-            api.update_status(maintain_log['response'])# +"  https://twitter.com/"+user_id+"/status/"+tweet_id)
+            api.update_status(maintain_log['response'] +"  https://twitter.com/"+user_id+"/status/"+tweet_id)
 
-            time.sleep(1200+randint(0, 600))
+            time.sleep(60)
             
         except BaseException as e:
             print("[Errno {0}] {1}".format(e.errno, e.strerror))
