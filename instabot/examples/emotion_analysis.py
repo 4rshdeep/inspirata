@@ -5,8 +5,8 @@ import numpy as np
 import urllib
 
 params = urllib.parse.urlencode({ })
-_url = 'https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?%s'%params
-_key = '41374a4e7ecb47da9ecec3a6c886ccfa' #Here you have to paste your primary key
+_url = 'https://westcentralus.api.cognitive.microsoft.com/face/v1.0/detect?%s'%params
+_key = '527e2d0a832640c6a4ae385c9d7e740d' #Here you have to paste your primary key
 _maxNumRetries = 10
 
 
@@ -55,9 +55,16 @@ def get_image_sentiment(path):
         headers['Ocp-Apim-Subscription-Key'] = _key
         headers['Content-Type'] = 'application/octet-stream'
         json = None
-        params = None
+        # params = None
+        params = urllib.urlencode({
+            # Request parameters
+            'returnFaceId': 'true',
+            'returnFaceLandmarks': 'false',
+            'returnFaceAttributes': '{string}',
+        })
         response = processRequest( json, data, headers, params )
-        result = response[0]['scores']
+        # result = response[0]['scores']
+        result = response[0]['faceAttributes']['emotion']
 
         my_param = result['anger']+result['contempt']+result['disgust']+result['sadness'] +result['fear']
 
@@ -73,13 +80,14 @@ def get_image_sentiment(path):
         print("Error")
         return None, None
 
-# import os
-# dir_path='test/'
-# images = os.listdir('test')
-# for image in images:
-#     image = dir_path+image
-#     print(image, end=" ")
-#     print(get_sentiment(image))
+import os
+print("jif")
+dir_path='test/'
+images = os.listdir('test')
+for image in images:
+    image = dir_path+image
+    print(image, end=" ")
+    print(get_image_sentiment(image))
 #     # os.remove(image)
     
 # if result is not None:

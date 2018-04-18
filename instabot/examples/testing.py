@@ -7,7 +7,7 @@ sys.path.append(os.path.join(sys.path[0], '../'))
 from instabot import Bot
 import delay
 
-bot = Bot()
+bot = Bot(max_comments_per_day=10000)
 bot.login(username='_inspirata', password='inspirata001')
 
 hashtags = ['sad', 'depressed', 'suicide', 'suicidal']

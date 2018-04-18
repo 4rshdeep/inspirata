@@ -90,9 +90,9 @@ class MyListener(StreamListener):
             print('----------'*5)
             
 
-            api.update_status(maintain_log['response'])# +"  https://twitter.com/"+user_id+"/status/"+tweet_id)
+            api.update_status(maintain_log['response'] +"  https://twitter.com/"+user_id+"/status/"+tweet_id)
 
-            time.sleep(1200+randint(0, 600))
+            time.sleep(randint(50, 150))
             
         except BaseException as e:
             print("[Errno {0}] {1}".format(e.errno, e.strerror))
@@ -101,11 +101,12 @@ class MyListener(StreamListener):
     def on_error(self, status):
         print(status)
         return True
+
 while(True):
-    try:
-        twitter_stream = Stream(auth, MyListener())
-        twitter_stream.filter(track=['anxiety', 'sadness', 'suicide', 'depression', 'sad'])
-    except Exception as e:
-        f = open("tweepy_error_log.txt", 'a')
-        print("Exception Occured")
-        f.write(time.strftime('\n Exception on Date: %Y-%m-%d Time: %H-%M-%S \n'))
+    #try:
+    twitter_stream = Stream(auth, MyListener())
+    twitter_stream.filter(track=['anxiety', 'sadness', 'suicide', 'depression', 'sad'])
+    #except Exception as e:
+    #    f = open("tweepy_error_log.txt", 'a')
+    #    print("Exception Occured")
+    #    f.write(time.strftime('\n Exception on Date: %Y-%m-%d Time: %H-%M-%S \n'))
